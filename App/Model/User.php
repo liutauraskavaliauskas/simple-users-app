@@ -17,11 +17,6 @@ class User implements UserInterface
     /**
      * @var string|null
      */
-    private $userName;
-
-    /**
-     * @var string|null
-     */
     private $password;
 
     /**
@@ -47,16 +42,6 @@ class User implements UserInterface
     public function setEmail(?string $email): void
     {
         $this->email = $email;
-    }
-
-    public function getUserName(): ?string
-    {
-        return $this->userName;
-    }
-
-    public function setUserName(?string $userName): void
-    {
-        $this->userName = $userName;
     }
 
     public function getPassword(): ?string
@@ -85,7 +70,6 @@ class User implements UserInterface
 
         $user->setId($data['id'] ?? null);
         $user->setEmail($data['email'] ?? null);
-        $user->setUserName($data['user_name'] ?? null);
         $user->setPassword($data['password'] ?? null);
         $user->setCreatedAt(isset($data['created_at']) ? new \DateTime($data['created_at']) : null);
 
