@@ -1,6 +1,6 @@
 <?php
 
-require_once '../App/autoload.php';
+require_once '../autoload.php';
 
 use App\Database\Database;
 
@@ -10,7 +10,7 @@ try {
 
     $connection->exec(
         'CREATE TABLE IF NOT EXISTS users (
-  id int(11) NOT NULL,
+  id int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   email varchar(255) NOT NULL,
   user_name varchar(255) NOT NULL,
   password varchar(255) NOT NULL

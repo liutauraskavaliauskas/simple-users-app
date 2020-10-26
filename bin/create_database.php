@@ -1,6 +1,6 @@
 <?php
 
-require_once '../App/autoload.php';
+require_once '../autoload.php';
 
 use App\Database\Database;
 
