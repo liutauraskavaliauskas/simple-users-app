@@ -8,4 +8,10 @@ if [[ $yesNo = "y" ]]; then
     php create_database.php
 
     echo "============= Database created =============="
+
+    echo "============= Creating tables ============="
+
+    php create_users_table.php
+
+    echo "============= Tables created =============="
 fi
