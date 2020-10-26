@@ -21,7 +21,7 @@ class LoginController
     {
         $user = $this->repository
             ->getOneByUserNameAndPassword(
-                $this->getUserName(),
+                $this->getEmail(),
                 $this->getPassword()
             );
 
@@ -32,9 +32,9 @@ class LoginController
         // TODO: add error messages on fail
     }
 
-    private function getUserName(): ?string
+    private function getEmail(): ?string
     {
-        return $_POST['username'] ?? null;
+        return $_POST['email'] ?? null;
     }
 
     private function getPassword(): ?string

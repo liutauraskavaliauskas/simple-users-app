@@ -7,14 +7,14 @@ use App\Model\User;
 
 class UserRepository extends Database
 {
-    public function getOneByUserNameAndPassword(string $userName, string $password): ?User
+    public function getOneByUserNameAndPassword(string $email, string $password): ?User
     {
         $connection = $this->getConnection();
 
         $user = null;
 
-        if ($statement = $connection->prepare('SELECT * FROM users')) {
-            $statement->bindParam('username', $userName);
+        if ($statement = $connection->prepare('SELECT * FROM users WHERE email = ? AND password = ?')) {
+            $statement->bindParam('email', $email);
             $statement->bindParam('password', $password);
 
             $statement->execute();
