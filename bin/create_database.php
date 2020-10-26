@@ -11,9 +11,10 @@ try {
         Database::PASSWORD
     );
 
-    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
     $connection->exec(sprintf('CREATE DATABASE IF NOT EXISTS %s', Database::DB_NAME));
+
+    // In order to close connection an object must be destroyed
+    $connection = null;
 } catch (PDOException $exception) {
     echo sprintf('Got exception: %s', $exception->getMessage());
 }
