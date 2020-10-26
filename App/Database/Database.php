@@ -11,9 +11,14 @@ class Database
     public const PASSWORD = 'liutauras';
     public const DB_NAME = 'simple_users_database';
 
-    public function getConnection(): PDO
+    /**
+     * @var PDO|null
+     */
+    private $pdo;
+
+    private function establishConnection(): PDO
     {
-        return new PDO(
+        $this->pdo = new PDO(
             sprintf(
                 'mysql:host=%s;dbname=%s',
                 self::HOST,
@@ -22,5 +27,24 @@ class Database
             self::USERNAME,
             self::PASSWORD
         );
+
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        return $this->pdo;
+    }
+
+    public function getConnection(): PDO
+    {
+        if (!$this->pdo instanceof PDO) {
+            $this->establishConnection();
+        }
+
+        return $this->pdo;
+    }
+
+    public function closeConnection(): void
+    {
+        // In order to close connection an object must be destroyed
+        $this->pdo = null;
     }
 }
