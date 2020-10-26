@@ -1,6 +1,6 @@
 <?php
 
-require_once 'pdo_config.php';
+require_once 'config/pdo_config.php';
 
 try {
     $connection = new PDO(
