@@ -8,34 +8,6 @@ use PDO;
 
 class UserRepository extends Database
 {
-    public function getOneByEmailAndPassword(string $email, string $password): ?User
-    {
-        $connection = $this->getConnection();
-
-        $user = null;
-
-        if ($statement = $connection->prepare('SELECT * FROM users WHERE email = :email')) {
-            $statement->bindParam('email', $email);
-
-            $statement->execute();
-
-            $fetchedUser = $statement->fetch(PDO::FETCH_ASSOC);
-
-            if (false !== $fetchedUser) {
-                $validPassword = password_verify($password, $fetchedUser['password']);
-
-                if (true === $validPassword) {
-                    $user = User::assign($fetchedUser);
-                }
-            }
-        }
-
-
-        $this->closeConnection();
-
-        return $user;
-    }
-
     /**
      * @return User[]
      */
@@ -58,5 +30,48 @@ class UserRepository extends Database
         $this->closeConnection();
 
         return $users;
+    }
+
+    public function getOneByEmail(string $email): ?User
+    {
+        $connection = $this->getConnection();
+
+        $user = null;
+
+        if ($statement = $connection->prepare('SELECT * FROM users WHERE email = :email')) {
+            $statement->bindParam('email', $email);
+
+            $statement->execute();
+
+            $fetchedUser = $statement->fetch(PDO::FETCH_ASSOC);
+
+            if (false !== $fetchedUser) {
+                $user = User::assign($fetchedUser);
+            }
+        }
+
+        $this->closeConnection();
+
+        return $user;
+    }
+
+    public function createOne(string $email, string $password): ?User
+    {
+        $connection = $this->getConnection();
+
+        $user = null;
+
+        if ($statement = $connection->prepare('INSERT INTO users (email, password) VALUES (:email, :password)')) {
+            $statement->bindParam('email', $email);
+            $statement->bindParam('password', $password);
+
+            $statement->execute();
+
+            $user = $this->getOneByEmail($email);
+        }
+
+        $this->closeConnection();
+
+        return $user;
     }
 }
