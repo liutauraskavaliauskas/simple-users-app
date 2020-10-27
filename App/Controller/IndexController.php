@@ -6,6 +6,6 @@ class IndexController
 {
     public function index(): void
     {
-        include 'Resources/views/index.html';
+        include 'Resources/views/Login/index.html';
     }
 }
