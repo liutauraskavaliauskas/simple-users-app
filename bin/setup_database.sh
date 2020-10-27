@@ -9,9 +9,15 @@ if [[ $yesNo = "y" ]]; then
 
     echo "============= Database created =============="
 
-    echo "============= Creating tables ============="
+    echo "============= Creating tables ==============="
 
     php create_users_table.php
 
-    echo "============= Tables created =============="
+    echo "============= Tables created ================"
+
+    echo "============= Adding admin =================="
+
+    php create_admin_user.php
+
+    echo "============= Admin added ==================="
 fi
