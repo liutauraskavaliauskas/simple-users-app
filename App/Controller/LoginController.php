@@ -20,16 +20,18 @@ class LoginController
     public function authenticate(): void
     {
         $user = $this->repository
-            ->getOneByUserNameAndPassword(
+            ->getOneByEmailAndPassword(
                 $this->getEmail(),
                 $this->getPassword()
             );
 
         if (!$user instanceof User) {
-             // TODO: Add redirect
+            die ('Incorrect email or password!');
         }
 
-        // TODO: add error messages on fail
+        $dashboardController = new DashboardController($this->repository);
+
+        $dashboardController->index();
     }
 
     private function getEmail(): ?string
