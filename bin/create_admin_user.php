@@ -12,7 +12,7 @@ try {
     // password_hash('liutauras', PASSWORD_BCRYPT) === '$2y$10$CsmdbrUH8K.0RQZJjKh5Q.4obRL8/e6y7XmUWVT0jTTTfRrmLdNm2'
 
     $connection->exec(
-        'INSERT INTO users (email, password) 
+        'INSERT INTO user (email, password) 
 VALUES ("liutauras@liutauras.com", "$2y$10$CsmdbrUH8K.0RQZJjKh5Q.4obRL8/e6y7XmUWVT0jTTTfRrmLdNm2")
 ON DUPLICATE KEY UPDATE email = email'
     );
