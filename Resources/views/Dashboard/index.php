@@ -4,6 +4,8 @@ require_once '../../../autoload.php';
 
 use App\Database\Repository\UserRepository;
 
+session_start();
+
 $users = (new UserRepository())->getAll();
 ?>
 
@@ -58,7 +60,9 @@ $users = (new UserRepository())->getAll();
                 </tbody>
             </table>
 
-            <a href="newUser.php" class="btn btn-primary">Add new user</a>
+            <?php if (App\Auth\Authorization::userHasPermission('dashboard_new_user')) { ?>
+                <a href="newUser.php" class="btn btn-primary">Add new user</a>
+            <?php } ?>
         </div>
     </div>
 </div>

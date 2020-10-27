@@ -8,6 +8,8 @@ class LoginController extends BaseController
 {
     public function authenticate(): void
     {
+        session_start();
+
         $user = $this->repository
             ->getOneByEmail(
                 $this->getEmail()
@@ -21,8 +23,9 @@ class LoginController extends BaseController
             die ('Incorrect password!');
         }
 
-        session_start();
         session_regenerate_id(true);
+
+        $_SESSION['currentUser'] = $user;
 
         $dashboardController = new DashboardController();
 

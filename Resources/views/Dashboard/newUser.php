@@ -2,8 +2,14 @@
 
 require_once '../../../autoload.php';
 
+use App\Auth\Authorization;
 use App\Controller\UserController;
+use App\Database\Repository\GroupRepository;
 use App\Database\Repository\UserRepository;
+
+session_start();
+
+Authorization::canUserAccess('user_create');
 
 $email = $_POST['email'] ?? null;
 $password = $_POST['password'] ?? null;
@@ -13,6 +19,8 @@ if (null !== $email && null !== $password) {
 
     $controller->create();
 }
+
+$groups = (new GroupRepository())->getAll();
 
 ?>
 
@@ -65,6 +73,20 @@ if (null !== $email && null !== $password) {
                     </span>
                     <input class="input100" type="password" name="password">
                     <span class="focus-input100"></span>
+                </div>
+
+                <span class="txt1 p-b-11">
+                    User group
+                </span>
+
+                <div class="wrap-input100 validate-input m-b-12" data-validate="User group is required">
+                    <select class="custom-select" name="group" style="width: 100%">
+                        <?php foreach ($groups as $group) { ?>
+                            <option value="<?php echo $group->getId(); ?>">
+                                <?php echo ucfirst($group->getName()); ?>
+                            </option>
+                        <? } ?>
+                    </select>
                 </div>
 
                 <div class="container-login100-form-btn">

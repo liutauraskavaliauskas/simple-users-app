@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use App\Database\Repository\GroupRepository;
+
 class User implements UserInterface
 {
     /**
@@ -23,6 +25,11 @@ class User implements UserInterface
      * @var \DateTime|null
      */
     private $createdAt;
+
+    /**
+     * @var Group[]
+     */
+    private $groups = [];
 
     public function getId(): ?int
     {
@@ -64,6 +71,22 @@ class User implements UserInterface
         $this->createdAt = $createdAt;
     }
 
+    /**
+     * @return Group[]
+     */
+    public function getGroups(): array
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @param Group[] $groups
+     */
+    public function setGroups(array $groups): void
+    {
+        $this->groups = $groups;
+    }
+
     public static function assign(array $data): User
     {
         $user = new self();
@@ -72,7 +95,21 @@ class User implements UserInterface
         $user->setEmail($data['email'] ?? null);
         $user->setPassword($data['password'] ?? null);
         $user->setCreatedAt(isset($data['created_at']) ? new \DateTime($data['created_at']) : null);
+        $user->setGroups(
+            (new GroupRepository())->getUserGroups($user->getId())
+        );
 
         return $user;
+    }
+
+    public function hasPermission(string $permission): bool
+    {
+        foreach ($this->getGroups() as $group) {
+            if ($group->hasPermission($permission)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
