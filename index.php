@@ -6,15 +6,13 @@ use App\Controller\IndexController;
 use App\Controller\LoginController;
 use App\Database\Repository\UserRepository;
 
-$userName = $_POST['username'] ?? null;
+$email = $_POST['email'] ?? null;
 $password = $_POST['password'] ?? null;
 
-if (null !== $userName && null !== $password) {
+if (null !== $email && null !== $password) {
     $controller = new LoginController(new UserRepository());
 
-    $redirect = $controller->authenticate();
-
-    header($redirect);
+    $controller->authenticate();
 }
 
 $controller = new IndexController();
