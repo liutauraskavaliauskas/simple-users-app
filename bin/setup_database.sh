@@ -12,12 +12,20 @@ if [[ $yesNo = "y" ]]; then
     echo "============= Creating tables ==============="
 
     php create_users_table.php
+    php create_groups_table.php
+    php create_permissions_table.php
+    php create_group_permissions_table.php
+    php create_user_group_table.php
 
     echo "============= Tables created ================"
 
-    echo "============= Adding admin =================="
+    echo "============= Adding data =================="
 
     php create_admin_user.php
+    php create_default_groups.php
+    php create_default_permissions.php
+    php create_default_group_permissions.php
+    php create_default_user_groups.php
 
-    echo "============= Admin added ==================="
+    echo "============= Admin data ==================="
 fi
