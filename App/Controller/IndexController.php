@@ -6,6 +6,8 @@ class IndexController
 {
     public function index(): void
     {
+        session_start();
+
         include 'Resources/views/Login/index.html';
     }
 }
