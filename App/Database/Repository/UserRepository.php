@@ -17,7 +17,7 @@ class UserRepository extends Database
 
         $users = [];
 
-        if ($statement = $connection->prepare('SELECT * FROM users')) {
+        if ($statement = $connection->prepare('SELECT * FROM user')) {
             $statement->execute();
 
             $fetchedUsers = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -38,7 +38,7 @@ class UserRepository extends Database
 
         $user = null;
 
-        if ($statement = $connection->prepare('SELECT * FROM users WHERE email = :email')) {
+        if ($statement = $connection->prepare('SELECT * FROM user WHERE email = :email')) {
             $statement->bindParam('email', $email);
 
             $statement->execute();
@@ -61,7 +61,7 @@ class UserRepository extends Database
 
         $user = null;
 
-        if ($statement = $connection->prepare('INSERT INTO users (email, password) VALUES (:email, :password)')) {
+        if ($statement = $connection->prepare('INSERT INTO user (email, password) VALUES (:email, :password)')) {
             $statement->bindParam('email', $email);
             $statement->bindParam('password', $password);
 
