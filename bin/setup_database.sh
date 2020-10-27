@@ -22,6 +22,7 @@ if [[ $yesNo = "y" ]]; then
     echo "============= Adding data =================="
 
     php create_admin_user.php
+    php create_simple_user.php
     php create_default_groups.php
     php create_default_permissions.php
     php create_default_group_permissions.php
