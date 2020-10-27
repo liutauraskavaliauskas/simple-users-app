@@ -12,3 +12,4 @@
 2. Add CSRF token usage for protection
 3. Add proper error handling and message show
 4. Proper template inheritance
+5. Cover with tests
